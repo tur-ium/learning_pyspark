@@ -62,24 +62,24 @@ train_row_count = 463715.
 train_perc=train_row_count/df.count()
 test_row_count = 51630.
 test_perc=test_row_count/df.count()
-train, test = df_ml.randomSplit([0.7,0.3],seed=12)
+train, test = df_ml.randomSplit([train_perc,test_perc],seed=12)
 
 # What is the best regression parameter?
 reg_param = 0.0
 from pyspark.ml.regression import LinearRegression
 lr = LinearRegression(labelCol='label',featuresCol='features',regParam=reg_param)
-linearModel = lr.fit(train)
-print(linearModel)
+linear_model = lr.fit(train)
+print(linear_model)
 
-predicted_years = linearModel.transform(test)
+predicted_years = linear_model.transform(test)
 predicted_years.sample(0.001).toPandas()
 
 # Summaries of fitting to train data
-rmse = linearModel.summary.rootMeanSquaredError
-r2 = linearModel.summary.r2
+rmse = linear_model.summary.rootMeanSquaredError
+r2 = linear_model.summary.r2
 
 print(f'RMSE of LinearRegression model = {rmse} (smaller is better)')
 print(f'r2 value of LinearRegression model = {r2} (smaller is better)')
-
+print(linear_model.coefficients)
 # How accurate is it, considering the test data?
 spark.stop()
