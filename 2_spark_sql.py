@@ -34,7 +34,7 @@ titanic_schema = StructType([
     StructField('Cabin',StringType()),
     StructField('Embarked',StringType())
 ])
-df = spark.read.csv('titanic_dataset.csv', header=True,schema=titanic_schema)
+df = spark.read.csv('data/titanic_dataset.csv', header=True,schema=titanic_schema)
 # Show the top 5 rows
 df.show(5)
 df.printSchema()

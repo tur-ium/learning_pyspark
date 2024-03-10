@@ -14,7 +14,7 @@ logging.basicConfig(filename='log.txt', filemode='w',level=logging.INFO)
 s = time.time()
 # Defining a SparkContext locally
 with (SparkContext.getOrCreate() as sc):
-    miserables = sc.textFile('les_miserables.txt')
+    miserables = sc.textFile('data/les_miserables.txt')
     logging.info(miserables.take(10))
 
     # SHAPING
