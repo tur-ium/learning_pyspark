@@ -5,6 +5,8 @@ import time
 from pyspark.sql import SparkSession
 from pyspark import SparkContext
 
+s=time.time()
+
 # Creating a SparkContext
 sc = SparkContext.getOrCreate()
 
@@ -80,10 +82,9 @@ from pyspark.ml.tuning import CrossValidator
 
 cv=CrossValidator(estimator=lr,estimatorParamMaps=param_grid,evaluator=evaluator,numFolds=3)
 
-s=time.time()
 cv_model = cv.fit(train)
 e=time.time()
-logging.info(f'Done in {e-s:.2f}s')
+print(f'Done in {e-s:.2f}s')
 
 # Apply model on train and test sets
 pred_train = cv_model.transform(train)
